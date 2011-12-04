@@ -38,12 +38,9 @@ Usage: scrub_jpeg [INPUT]
   3) /path/to/dir
 EOS
 
-if __FILE__
-  if ARGV.empty?
-    puts USAGE
-    exit 0
-  else
-    scrub_files(parse_files(ARGV))
-  end
+if ARGV.empty?
+  puts USAGE
+  exit 0
+else
+  scrub_files(parse_files(ARGV))
 end
-
