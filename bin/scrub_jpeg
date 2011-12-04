@@ -1,3 +1,49 @@
 #!/usr/bin/env ruby
 
 require "scrub_jpeg"
+
+def parse_files(args)
+  files = []
+  args.each do |argv|
+    Dir.glob(argv).each do |f_or_d|
+      next unless File.exists?(f_or_d)
+      if File.file?(f_or_d)
+        next unless f_or_d =~ /\.jpe?g/i
+        files << f_or_d
+      elsif File.directory?(f_or_d)
+        splat = File.expand_path(f_or_d) + '/*'
+        Dir[splat].each do |f|
+          next unless f =~ /\.jpe?g/i
+          files << f
+        end
+      end
+    end
+  end
+  files
+end
+
+def scrub_files(files)
+  files.each do |filename|
+    scrubber = ScrubJpeg::Scrubber.new(filename)
+    scrubber.scrub!
+  end
+end
+
+USAGE = <<EOS
+Usage: scrub_jpeg [INPUT]
+
+  where INPUT may be:
+  1) file.jpg
+  2) *splat*.jpg
+  3) /path/to/dir
+EOS
+
+if __FILE__
+  if ARGV.empty?
+    puts USAGE
+    exit 0
+  else
+    scrub_files(parse_files(ARGV))
+  end
+end
+

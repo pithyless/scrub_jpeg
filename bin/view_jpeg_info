@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'exiv2'
+
+filename = ARGV[0] or fail 'Missing filename'
+
+image = Exiv2::ImageFactory.open(filename)
+image.read_metadata
+
+image.iptc_data.each do |key, value|
+  puts "#{key} = #{value}\n"
+end
+
+image.exif_data.each do |key, value|
+  puts "#{key} = #{value}\n"
+end
+
+image.xmp_data.each do |key, value|
+  puts "#{key} = #{value}\n"
+end
