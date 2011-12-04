@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Norbert Wojtowicz"]
   s.email       = ["wojtowicz.norbert@gmail.com"]
   s.homepage    = "https://github.com/pithyless/scrub_jpeg"
-  s.summary     = "Scrubs your images free of excess metadata."
+  s.summary     = "Scrubs your images free of all metadata tags."
   s.description = s.summary
 
   s.rubyforge_project = "scrub_jpeg"
